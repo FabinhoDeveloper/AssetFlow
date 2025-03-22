@@ -12,8 +12,12 @@ const Workspace = sequelize.define("workspace", {
         type: DataTypes.STRING,
         allowNull: false
     }
+},{
+    tableName: "workspace",
+    timestamps: false
 })
 
+Setor.belongsTo(Workspace, {foreignKey: "idWorkspace"})
 Workspace.hasMany(Setor, {foreignKey: "idWorkspace"})
 
 export default Workspace

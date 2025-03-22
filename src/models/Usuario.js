@@ -1,5 +1,4 @@
 import { DataTypes } from "sequelize";
-import Setor from "./Setor.js";
 import sequelize from "../config/database.js";
 
 const Usuario = sequelize.define("usuario", {
@@ -33,8 +32,9 @@ const Usuario = sequelize.define("usuario", {
         type: DataTypes.STRING,
         allowNull: false
     }
+},{
+    tableName: "usuario",
+    timestamps: false
 })
-
-Usuario.belongsTo(Setor, {foreignKey: "idSetor"})
 
 export default Usuario

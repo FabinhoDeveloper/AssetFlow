@@ -1,5 +1,4 @@
 import { DataTypes } from "sequelize";
-import Setor from "./Setor.js";
 import sequelize from "../config/database.js";
 
 const Item = sequelize.define("item", {
@@ -20,8 +19,9 @@ const Item = sequelize.define("item", {
         type: DataTypes.INTEGER,
         allowNull: false,
     }
+},{
+    tableName: "item",
+    timestamps: false
 })
-
-Item.belongsTo(Setor, {foreignKey: "idSetor"})
 
 export default Item

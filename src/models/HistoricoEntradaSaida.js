@@ -15,6 +15,9 @@ const Historico = sequelize.define("historico", {
         type: DataTypes.DATE,
         allowNull: false
     }
+},{
+    tableName: "historico",
+    timestamps: false
 })
 
 export default Historico

@@ -1,6 +1,4 @@
 import { DataTypes } from "sequelize";
-import Workspace from "./Workspace.js";
-import Usuario from "./Usuario.js";
 import sequelize from "../config/database.js";
 
 const Setor = sequelize.define("setor", {
@@ -13,9 +11,9 @@ const Setor = sequelize.define("setor", {
         type: DataTypes.STRING,
         allowNull: false
     }
+},{
+    tableName: "setor",
+    timestamps: false
 })
-
-Setor.belongsTo(Workspace, {foreignKey: "idWorkspace"})
-Setor.hasMany(Usuario, {foreignKey: "idUsuario"})
 
 export default Setor

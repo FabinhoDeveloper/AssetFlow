@@ -1,13 +1,31 @@
 import Setor from "../models/Setor.js";
 
-async function cadastrarSetor(req, res) {
+export default class SetorControllers {
+    static async cadastrarSetor(req, res) {
+        const {nome, idWorkspace} = req.body
 
-}   
+        try {
+            const setorCadastrado = await Setor.create({nome, idWorkspace})
+        } catch (error) {
 
-async function excluirSetor(req, res) {
-    const {id} = req.body
-}
-
-async function name(params) {
+        }
+    }   
     
+    static async excluirSetor(req, res) {
+        const {idSetor} = req.params
+    }
+
+    static async editarSetor(req, res) {
+        const {idSetor} = req.params
+    }
+    
+    static async inserirUsuarioNoSetor(req, res) {
+        const {idSetor} = req.params
+        const {idUsuario} = req.body
+    }
+
+    static async removerUsuarioNoSetor(req, res) {
+        const {idSetor} = req.params
+        const {idUsuario} = req.body
+    }
 }
