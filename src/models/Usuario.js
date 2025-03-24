@@ -7,7 +7,11 @@ const Usuario = sequelize.define("usuario", {
         primaryKey: true,
         autoIncrement: true
     },
-    nome: {
+    primeiroNome: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    ultimoNome: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -20,18 +24,15 @@ const Usuario = sequelize.define("usuario", {
         allowNull: false,
         unique: true
     },
-    cargo: {
+    cpf: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     estaAtivo: {
         type: DataTypes.BOOLEAN,
         defaultValue: true
     },
-    tipo: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
 },{
     tableName: "usuario",
     timestamps: false

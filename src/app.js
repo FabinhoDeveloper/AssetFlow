@@ -13,6 +13,7 @@ import setupAssociations from "./models/associations.js"
 
 const app = express() // Instancia do express
 config() // Variáveis de ambiente
+app.use(express.json())
 
 // Rota padrão da API
 

@@ -9,7 +9,7 @@ export default class HistoricoControllers {
         
             
         } catch (error) {
-            return res.json({ sucesso: false, mensagem: "Erro ao cadastrar registro no histórico!", erro: error.message });
+            return res.status(500).json({ sucesso: false, mensagem: "Erro ao cadastrar registro no histórico!", erro: error.message });
         }
     }
 
@@ -23,7 +23,7 @@ export default class HistoricoControllers {
                 return res.json({ sucesso: false, mensagem: "Nenhum registro encontrado no histórico!" })
             }
         } catch (error) {
-            return res.json({ sucesso: false, mensagem: "Erro ao listar registros no histórico!", erro: error.message });
+            return res.status(500).json({ sucesso: false, mensagem: "Erro ao listar registros no histórico!", erro: error.message });
         }
     }
 }

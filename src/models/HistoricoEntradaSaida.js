@@ -14,7 +14,15 @@ const Historico = sequelize.define("historico", {
     dataRegistro: {
         type: DataTypes.DATE,
         allowNull: false
-    }
+    }, 
+    idSetor: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: "setor",
+            key: "idSetor"
+        }
+    } 
 },{
     tableName: "historico",
     timestamps: false

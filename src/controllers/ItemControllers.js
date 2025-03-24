@@ -15,7 +15,7 @@ export default class ItemController {
         }
     }
     
-    static async deletarItem(req, res) {
+    static async excluirItem(req, res) {
         const {idItem} = req.params
     }
 
