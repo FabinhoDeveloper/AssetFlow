@@ -33,7 +33,7 @@ app.use("/workspace", workspaceRoutes)
 
 setupAssociations()
 
-sequelize.sync({force: true})
+sequelize.sync({ force: false })
     .then(() => {console.log("Banco de dados sincronizado com sucesso")})
     .catch(err => console.error("Erro ao sincronizar banco de dados", err))
 

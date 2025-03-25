@@ -17,7 +17,4 @@ const Workspace = sequelize.define("workspace", {
     timestamps: false
 })
 
-Setor.belongsTo(Workspace, {foreignKey: "idWorkspace"})
-Workspace.hasMany(Setor, {foreignKey: "idWorkspace"})
-
 export default Workspace

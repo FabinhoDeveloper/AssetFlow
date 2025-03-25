@@ -1,4 +1,5 @@
 import Cargo from "../models/Cargo.js";
+import Setor from "../models/Setor.js";
 
 export default class CargoControllers {
     static async listarCargosPorSetor(req, res) {
@@ -17,10 +18,20 @@ export default class CargoControllers {
 
     static async cadastrarCargo(req, res) {
         const {nome, idSetor} = req.body
-            
+
         try {
             if (!nome) {
                 return res.status(400).json({ sucesso: false, mensagem: "Preencha o nome do cargo!" })
+            }
+
+            if (!idSetor) {
+                return res.status(400).json({ sucesso: false, mensagem: "Preencha o ID do setor!" })
+            }
+
+            const setor = await Setor.findByPk({ idSetor })
+
+            if (!setor) {
+                return res.status(404).json({ sucesso: false, mensagem: "Setor não encontrado ou não cadastrado!" })
             }
 
             const cargoCriado = await Cargo.create({ nome })

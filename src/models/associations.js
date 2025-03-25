@@ -22,10 +22,6 @@ export default function setupAssociations() {
     Usuario.belongsToMany(Setor, { through: UsuarioSetor, foreignKey: "idUsuario" });
     Setor.belongsToMany(Usuario, { through: UsuarioSetor, foreignKey: "idSetor" });
 
-    // 📌 Muitos-para-muitos entre Usuario e Workspace
-    Usuario.belongsToMany(Workspace, { through: "UsuarioWorkspace", foreignKey: "idUsuario" });
-    Workspace.belongsToMany(Usuario, { through: "UsuarioWorkspace", foreignKey: "idWorkspace" });
-
     // 📌 Muitos-para-muitos entre Usuario e Cargo
     Usuario.belongsToMany(Cargo, { through: UsuarioCargo, foreignKey: "idUsuario" });
     Cargo.belongsToMany(Usuario, { through: UsuarioCargo, foreignKey: "idCargo" });
@@ -33,11 +29,17 @@ export default function setupAssociations() {
     // 📌 Muitos-para-muitos entre Usuario e TipoUsuarioSetor
     Usuario.belongsToMany(TipoUsuarioSetor, { through: UsuarioTipoUsuarioSetor, foreignKey: "idUsuario" });
     TipoUsuarioSetor.belongsToMany(Usuario, { through: UsuarioTipoUsuarioSetor, foreignKey: "idTipoUsuarioSetor" });
+    	
+    Usuario.belongsToMany(Workspace, { through: UsuarioTipoUsuarioWorkspace, foreignKey: "idUsuario" });
+    Workspace.belongsToMany(Usuario, { through: UsuarioTipoUsuarioWorkspace, foreignKey: "idWorkspace" });
 
     // 📌 Muitos-para-muitos entre Usuario e TipoUsuarioWorkspace
     Usuario.belongsToMany(TipoUsuarioWorkspace, { through: UsuarioTipoUsuarioWorkspace, foreignKey: "idUsuario" });
     TipoUsuarioWorkspace.belongsToMany(Usuario, { through: UsuarioTipoUsuarioWorkspace, foreignKey: "idTipoUsuarioWorkspace" });
 
+    Workspace.belongsToMany(TipoUsuarioWorkspace, { through: UsuarioTipoUsuarioWorkspace, foreignKey: "idWorkspace"});
+    TipoUsuarioWorkspace.belongsToMany(Workspace, { through: UsuarioTipoUsuarioWorkspace, foreignKey: "idTipoUsuarioWorkspace"})
+    
     // 📌 Item pertence a um Setor (1-N)
     Item.belongsTo(Setor, { foreignKey: "idSetor" });
     Setor.hasMany(Item, { foreignKey: "idSetor" });

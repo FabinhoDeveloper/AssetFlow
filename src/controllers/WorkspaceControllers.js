@@ -1,5 +1,6 @@
 import Workspace from "../models/Workspace.js";
 import Usuario from "../models/Usuario.js";
+import UsuarioTipoUsuarioWorkspace from "../models/intermediarias/UsuarioTipoUsuarioWorkspace.js";
 
 export default class WorkspaceControllers {
     static async listarWorkspacesPorUsuario(req, res) {
@@ -18,16 +19,16 @@ export default class WorkspaceControllers {
                 return res.status(400).json({ sucesso: false, mensagem: "Preencha o ID do usuário responsável pelo Workspace!" })
             }
 
-            const usuario = await Usuario.findByPk({idUsuario})
+            const usuario = await Usuario.findByPk(idUsuario)
 
             if (!usuario) {
                 return res.status(404).json({ sucesso: false, mensagem: "Usuário não encontrado!" })
             }
 
             const workspaceCriado = await Workspace.create({nome})
-            workspaceCriado.addUsuario(usuario)
+            await UsuarioTipoUsuarioWorkspace.create({idWorkspace: workspaceCriado.idWorkspace, idUsuario, idTipoUsuarioWorkspace: 1})
             
-            return res.status(201).json({ sucesso: true, mensagem: `Workspace ${nome} criado com sucesso pelo usuário ${usuario.nome}!`})
+            return res.status(201).json({ sucesso: true, mensagem: `Workspace ${nome} criado com sucesso!`})
         } catch (error) {
             return res.status(500).json({ sucesso: false, mensagem: "Erro ao cadastrar Workspace!", erro: error.message });
         }
