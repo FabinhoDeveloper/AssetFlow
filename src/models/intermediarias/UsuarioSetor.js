@@ -14,6 +14,22 @@ const UsuarioSetor = sequelize.define("UsuarioSetor", {
             model: "workspace",
             key: "idWorkspace"
         }
+    },
+    idUsuario: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: "usuario",
+            key: "idUsuario"
+        }
+    },
+    idSetor: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: "setor",
+            key: "idSetor"
+        }
     }
 }, {
     tableName: "usuarioSetor",

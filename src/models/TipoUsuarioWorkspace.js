@@ -16,24 +16,25 @@ const TipoUsuarioWorkspace = sequelize.define("tipoUsuarioWorkspace", {
     timestamps: false
 })
 
- async function cadastrarTiposDeUsuarioWorkspace() {
-     const temAdministrador = await TipoUsuarioWorkspace.findOne({nome: "Administrador"})
-     const temCoAdministrador = await TipoUsuarioWorkspace.findOne({nome: "Co-Administrador"})
-     const temParticipante = await TipoUsuarioWorkspace.findOne({nome: "Padrao"})
+async function cadastrarTiposDeUsuarioWorkspace() {
+    const temAdministrador = await TipoUsuarioWorkspace.findOne({ where: { nome: "Administrador" } });
+    const temCoAdministrador = await TipoUsuarioWorkspace.findOne({ where: { nome: "Co-Administrador" } });
+    const temParticipante = await TipoUsuarioWorkspace.findOne({ where: { nome: "Padrao" } });
 
-     if (!temAdministrador) {
-         await TipoUsuarioWorkspace.create({nome: "Administrador"})
-     } 
+    if (!temAdministrador) {
+        await TipoUsuarioWorkspace.create({ nome: "Administrador" });
+    }
 
-     if (!temCoAdministrador) {
-         await TipoUsuarioWorkspace.create({nome: "Co-Administrador"})
-     }
+    if (!temCoAdministrador) {
+        await TipoUsuarioWorkspace.create({ nome: "Co-Administrador" });
+    }
 
-     if (!temParticipante) {
-         await TipoUsuarioWorkspace.create({nome: "Padrao"})
-     }
- }
+    if (!temParticipante) {
+        await TipoUsuarioWorkspace.create({ nome: "Padrao" });
+    }
+}
 
- cadastrarTiposDeUsuarioWorkspace()
+
+cadastrarTiposDeUsuarioWorkspace()
 
 export default TipoUsuarioWorkspace

@@ -3,15 +3,12 @@ import Setor from "./Setor.js";
 import Usuario from "./Usuario.js";
 import Item from "./Item.js";
 import Historico from "./HistoricoEntradaSaida.js";
-import TipoUsuarioSetor from "./TipoUsuarioSetor.js";
-import TipoUsuarioWorkspace from "./TipoUsuarioWorkspace.js";
 import Cargo from "./Cargo.js";
 
 // 📌 Tabelas intermediárias importadas
 import UsuarioCargo from "./intermediarias/UsuarioCargo.js";
 import UsuarioSetor from "./intermediarias/UsuarioSetor.js";
-import UsuarioTipoUsuarioSetor from "./intermediarias/UsuarioTipoUsuarioSetor.js";
-import UsuarioTipoUsuarioWorkspace from "./intermediarias/UsuarioTipoUsuarioWorkspace.js";
+import UsuarioWorkspace from "./intermediarias/UsuarioWorkspace.js"
 
 export default function setupAssociations() {
     // 📌 Setor pertence a um Workspace (1-N)
@@ -26,20 +23,14 @@ export default function setupAssociations() {
     Usuario.belongsToMany(Cargo, { through: UsuarioCargo, foreignKey: "idUsuario" });
     Cargo.belongsToMany(Usuario, { through: UsuarioCargo, foreignKey: "idCargo" });
 
-    // 📌 Muitos-para-muitos entre Usuario e TipoUsuarioSetor
-    Usuario.belongsToMany(TipoUsuarioSetor, { through: UsuarioTipoUsuarioSetor, foreignKey: "idUsuario" });
-    TipoUsuarioSetor.belongsToMany(Usuario, { through: UsuarioTipoUsuarioSetor, foreignKey: "idTipoUsuarioSetor" });
-    	
-    Usuario.belongsToMany(Workspace, { through: UsuarioTipoUsuarioWorkspace, foreignKey: "idUsuario" });
-    Workspace.belongsToMany(Usuario, { through: UsuarioTipoUsuarioWorkspace, foreignKey: "idWorkspace" });
-
-    // 📌 Muitos-para-muitos entre Usuario e TipoUsuarioWorkspace
-    Usuario.belongsToMany(TipoUsuarioWorkspace, { through: UsuarioTipoUsuarioWorkspace, foreignKey: "idUsuario" });
-    TipoUsuarioWorkspace.belongsToMany(Usuario, { through: UsuarioTipoUsuarioWorkspace, foreignKey: "idTipoUsuarioWorkspace" });
-
-    Workspace.belongsToMany(TipoUsuarioWorkspace, { through: UsuarioTipoUsuarioWorkspace, foreignKey: "idWorkspace"});
-    TipoUsuarioWorkspace.belongsToMany(Workspace, { through: UsuarioTipoUsuarioWorkspace, foreignKey: "idTipoUsuarioWorkspace"})
+    // // 📌 Muitos-para-muitos entre Usuario e TipoUsuarioSetor
+    // Usuario.belongsToMany(TipoUsuarioSetor, { through: "UsuarioTipoUsuarioSetor", foreignKey: "idUsuario" });
+    // TipoUsuarioSetor.belongsToMany(Usuario, { through: "UsuarioTipoUsuarioSetor", foreignKey: "idTipoUsuarioSetor" });
     
+    // Um usuario pertence a vários workspaces
+    Usuario.belongsToMany(Workspace, { through: UsuarioWorkspace, foreignKey: "idUsuario" })
+    Workspace.belongsToMany(Usuario, { through: UsuarioWorkspace, foreignKey: "idWorkspace"})
+
     // 📌 Item pertence a um Setor (1-N)
     Item.belongsTo(Setor, { foreignKey: "idSetor" });
     Setor.hasMany(Item, { foreignKey: "idSetor" });

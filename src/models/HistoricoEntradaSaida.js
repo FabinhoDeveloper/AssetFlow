@@ -8,7 +8,7 @@ const Historico = sequelize.define("historico", {
         autoIncrement: true
     },
     tipoRegistro: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM("Entrada", "Saída"),
         allowNull: false
     },
     dataRegistro: {

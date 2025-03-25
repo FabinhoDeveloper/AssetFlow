@@ -1,8 +1,22 @@
 import Workspace from "../models/Workspace.js";
 import Usuario from "../models/Usuario.js";
-import UsuarioTipoUsuarioWorkspace from "../models/intermediarias/UsuarioTipoUsuarioWorkspace.js";
+import UsuarioWorkspace from "../models/intermediarias/UsuarioWorkspace.js";
 
 export default class WorkspaceControllers {
+    static async listarWorkspaces(req, res) {
+        try {
+            const workspaces = await Workspace.findAll()
+
+            if (workspaces.length === 0) {
+                return res.status(404).json({ sucesso: false, mensagem: "Nenhum Workspace encontrado!"})
+            }
+
+            return res.json({ sucesso: true, mensagem: "Workspaces listados com sucesso!", workspaces })
+        } catch (error) {
+            return res.status(500).json({ sucesso: false, mensagem: "Erro ao listar Workspaces!", erro: error.message });
+        }
+    }
+
     static async listarWorkspacesPorUsuario(req, res) {
         const {idUsuario} = req.params
     }
@@ -26,7 +40,7 @@ export default class WorkspaceControllers {
             }
 
             const workspaceCriado = await Workspace.create({nome})
-            await UsuarioTipoUsuarioWorkspace.create({idWorkspace: workspaceCriado.idWorkspace, idUsuario, idTipoUsuarioWorkspace: 1})
+            await UsuarioWorkspace.create({idUsuario, idWorkspace: workspaceCriado.idWorkspace, idTipoUsuarioWorkspace: 1})
             
             return res.status(201).json({ sucesso: true, mensagem: `Workspace ${nome} criado com sucesso!`})
         } catch (error) {
@@ -36,6 +50,24 @@ export default class WorkspaceControllers {
 
     static async excluirWorkspace(req, res) {
         const {idWorkspace} = req.params
+
+        try {
+            if (!idWorkspace) {
+                return res.status(400).json({ sucesso: false, mensagem: "Preencha o nome do Workspace!" })
+            }
+
+            const workspace = await Workspace.findOne({where: {idWorkspace}})
+
+            if (!workspace) {
+                return res.status(404).json({ sucesso: false, mensagem: "Preencha o nome do Workspace!" })
+            }
+
+            await workspace.destroy();
+
+            return res.json({ sucesso: true, mensagem: `Workspace ${workspace.nome} excluído com sucesso!`})
+        } catch (error) {
+            return res.status(500).json({ sucesso: false, mensagem: "Erro ao excluir Workspace!", erro: error.message });
+        }
     }
 
     static async editarWorkspace(req, res) {

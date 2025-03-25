@@ -1,6 +1,10 @@
 import Setor from "../models/Setor.js";
 
 export default class SetorControllers {
+    static async listarSetorPorUsuario(req, res) {
+        
+    }
+
     static async cadastrarSetor(req, res) {
         const {nome, idWorkspace} = req.body
 

@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../../config/database.js";
 
-const UsuarioTipoUsuarioWorkspace = sequelize.define("usuarioTipoUsuarioWorkspace", {
-    idUsuarioTipoUsuarioWorkspace: {
+const UsuarioWorkspace = sequelize.define("usuarioTipoUsuarioWorkspace", {
+    idUsuarioWorkspace: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -17,18 +17,15 @@ const UsuarioTipoUsuarioWorkspace = sequelize.define("usuarioTipoUsuarioWorkspac
     },
     idTipoUsuarioWorkspace: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: "tipoUsuarioWorkspace",
+            key: "idTipo"
+        }
     }
 }, {
-    tableName: "UsuarioTipoUsuarioWorkspace",
+    tableName: "UsuarioWorkspace",
     timestamps: false,
-    indexes: [
-        {
-            unique: true,
-            fields: ["idUsuario", "idWorkspace", "idTipoUsuarioWorkspace"]
-        }
-    ]
 });
 
-
-export default UsuarioTipoUsuarioWorkspace
+export default UsuarioWorkspace
