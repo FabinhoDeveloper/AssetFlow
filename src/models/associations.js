@@ -23,11 +23,7 @@ export default function setupAssociations() {
     Usuario.belongsToMany(Cargo, { through: UsuarioCargo, foreignKey: "idUsuario" });
     Cargo.belongsToMany(Usuario, { through: UsuarioCargo, foreignKey: "idCargo" });
 
-    // // 📌 Muitos-para-muitos entre Usuario e TipoUsuarioSetor
-    // Usuario.belongsToMany(TipoUsuarioSetor, { through: "UsuarioTipoUsuarioSetor", foreignKey: "idUsuario" });
-    // TipoUsuarioSetor.belongsToMany(Usuario, { through: "UsuarioTipoUsuarioSetor", foreignKey: "idTipoUsuarioSetor" });
-    
-    // Um usuario pertence a vários workspaces
+    // 📌 Muitos-para-muitos entre Usuario e Workspace
     Usuario.belongsToMany(Workspace, { through: UsuarioWorkspace, foreignKey: "idUsuario" })
     Workspace.belongsToMany(Usuario, { through: UsuarioWorkspace, foreignKey: "idWorkspace"})
 

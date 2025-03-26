@@ -55,8 +55,10 @@ export default class CargoControllers {
                 return res.status(400).json({ sucesso: false, mensagem: "Preencha o nome do cargo!" })
             }
 
+            const cargo = await Cargo.findByPk(idCargo)
+            cargo.nome = nome
 
-            const cargo = await Cargo.findByPk({ idCargo })
+            
         } catch (error) {
             
         }

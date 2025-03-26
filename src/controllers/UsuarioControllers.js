@@ -3,9 +3,29 @@ import bcrypt from "bcrypt"
 
 export default class UsuarioControllers {
     static async login(req, res) {
-        const {email, senha} = req.body        
+        const {email, senha} = req.body 
+        
+        try {
+            
+        } catch (error) {
+            
+        }
     }
 
+    static async listarUsuarios(req, res) {
+        try {
+            const listaUsuarios = await Usuario.findAll()
+
+            if (listaUsuarios.length === 0) {
+                return res.status(404).json({ sucesso: false, mensagem: "Nenhum usuário encontrado!" })
+            }
+
+            return res.json({ sucesso: true, mensagem: "Usuários listados com sucesso!", listaUsuarios})
+        } catch (error) {
+            return res.status(500).json({ sucesso: false, mensagem: "Erro ao listar usuários!", erro: error.message });
+        }
+    }
+    
     static async cadastrarUsuario(req, res) {
         const {primeiroNome, ultimoNome, senha, email, cpf} = req.body
 
@@ -50,13 +70,27 @@ export default class UsuarioControllers {
 
     static async excluirUsuario(req, res) {
         const {idUsuario} = req.params
+
+        try {
+            if (!idUsuario) {
+                return res.status(404).json({ sucesso: false, mensagem: "Preencha o ID do usuário!" })
+            }
+
+            const usuario = await Usuario.findOne({ where: {idUsuario}} )
+
+            if (!usuario) {
+                return res.status(404).json({ sucesso: false, mensagem: "Usuário não encontrado!" })
+            }
+
+            await usuario.destroy()
+
+            return res.json({ sucesso: true, mensagem: `Usuário ${usuario.primeiroNome} ${usuario.ultimoNome} excluído com sucesso!`})
+        } catch (error) {
+            return res.status(500).json({ sucesso: false, mensagem: "Erro ao excluir usuário!", erro: error.message });
+        }
     }
 
     static async editarUsuario(req, res) {
         const {idUsuario} = req.params
-    }
-
-    static async listarUsuariosPorWorkspace(req, res) {
-        const {idWorkspace} = req.params
     }
 }
