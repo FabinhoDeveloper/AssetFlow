@@ -19,10 +19,12 @@ export default class WorkspaceControllers {
 
     static async listarWorkspacesPorUsuario(req, res) {
         const {idUsuario} = req.params
-    }
 
-    static async listarUsuariosPorWorkspace(req, res) {
-        const {idWorkspace} = req.params
+        try {
+            
+        } catch (error) {
+            
+        }
     }
     
     static async cadastrarWorkspace(req, res) {
