@@ -75,6 +75,27 @@ export default class WorkspaceControllers {
     }
 
     static async editarWorkspace(req, res) {
-        const {idWorkspace} = req.params
+        const { idWorkspace } = req.params;
+        const { nome } = req.body;
+    
+        try {     
+            if (!nome) {
+                return res.status(400).json({ sucesso: false, mensagem: "Preencha o nome do Workspace!" });
+            }
+            
+            const workspace = await Workspace.findOne({ where: { idWorkspace } });
+    
+            
+            if (!workspace) {
+                return res.status(404).json({ sucesso: false, mensagem: "Workspace não encontrado!" });
+            }
+    
+        
+            await workspace.update({ nome });
+    
+            return res.json({ sucesso: true, mensagem: `Workspace atualizado para "${nome}" com sucesso!` });
+        } catch (error) {
+            return res.status(500).json({ sucesso: false, mensagem: "Erro ao editar Workspace!", erro: error.message });
+        }
     }
 }
