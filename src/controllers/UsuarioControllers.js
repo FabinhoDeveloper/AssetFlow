@@ -3,7 +3,7 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
 export default class UsuarioControllers {
-    static async login(req, res) {
+    static async login(req, res) { // Funciona
         const {email, senha} = req.body 
         
         try {
@@ -36,7 +36,7 @@ export default class UsuarioControllers {
         }
     }
 
-    static async listarUsuarios(req, res) {
+    static async listarUsuarios(req, res) { // Funciona
         try {
             const listaUsuarios = await Usuario.findAll()
 
@@ -50,7 +50,7 @@ export default class UsuarioControllers {
         }
     }
     
-    static async cadastrarUsuario(req, res) {
+    static async cadastrarUsuario(req, res) { // Funciona
         const {primeiroNome, ultimoNome, senha, email, cpf} = req.body
 
         try {
@@ -92,7 +92,7 @@ export default class UsuarioControllers {
         }
     }
 
-    static async excluirUsuario(req, res) {
+    static async excluirUsuario(req, res) { // Funciona
         const {idUsuario} = req.params
 
         try {
@@ -114,7 +114,7 @@ export default class UsuarioControllers {
         }
     }
 
-    static async editarUsuario(req, res) {
+    static async editarUsuario(req, res) { // Funciona
         const {idUsuario} = req.params
         const {primeiroNome, ultimoNome, senha, email, cpf} = req.body
 
@@ -129,7 +129,9 @@ export default class UsuarioControllers {
                 return res.status(404).json({ sucesso: false, mensagem: "Nenhum usuário encontrado com este ID!"})
             }
 
-            await usuario.update({ primeiroNome, ultimoNome, senha, email, cpf })
+            const senhaHash = await bcrypt.hash(senha, 10)
+
+            await usuario.update({ primeiroNome, ultimoNome, senha: senhaHash, email, cpf })
 
             return res.json({ sucesso: true, mensagem: `Usuário ${usuario.primeiroNome} ${usuario.ultimoNome} editado com sucesso!`})
         } catch (error) {

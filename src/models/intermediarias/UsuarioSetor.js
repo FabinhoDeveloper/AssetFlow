@@ -7,14 +7,6 @@ const UsuarioSetor = sequelize.define("UsuarioSetor", {
         primaryKey: true,
         autoIncrement: true
     },
-    idWorkspace: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: "workspace",
-            key: "idWorkspace"
-        }
-    },
     idUsuario: {
         type: DataTypes.INTEGER,
         allowNull: false,
