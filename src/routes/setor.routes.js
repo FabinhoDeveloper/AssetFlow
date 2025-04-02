@@ -8,6 +8,6 @@ router.post("/cadastrar", SetorControllers.cadastrarSetor)
 router.delete("/excluir/:idSetor", SetorControllers.excluirSetor)
 router.patch("/editar/:idSetor", SetorControllers.editarSetor)
 router.post("/inserir-usuario/:idSetor", SetorControllers.inserirUsuarioNoSetor)
-router.post("/remover-usuario/:idSetor", SetorControllers.removerUsuarioNoSetor)
+router.delete("/remover-usuario/:idSetor", SetorControllers.removerUsuarioNoSetor)
 
 export default router
