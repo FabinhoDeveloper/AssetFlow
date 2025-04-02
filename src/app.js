@@ -1,6 +1,8 @@
-import express from "express"
 import { config } from "dotenv"
+config()
+
 import sequelize from "./config/database.js"
+import express from "express"
 
 // Import das rotas
 
@@ -33,7 +35,7 @@ app.use("/workspace", workspaceRoutes)
 
 setupAssociations()
 
-sequelize.sync({ force: false })
+sequelize.sync({ alter: true })
     .then(() => {console.log("Banco de dados sincronizado com sucesso")})
     .catch(err => console.error("Erro ao sincronizar banco de dados", err))
 

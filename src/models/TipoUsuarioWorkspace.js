@@ -17,23 +17,30 @@ const TipoUsuarioWorkspace = sequelize.define("tipoUsuarioWorkspace", {
 })
 
 async function cadastrarTiposDeUsuarioWorkspace() {
-    const temAdministrador = await TipoUsuarioWorkspace.findOne({ where: { nome: "Administrador" } });
-    const temCoAdministrador = await TipoUsuarioWorkspace.findOne({ where: { nome: "Co-Administrador" } });
-    const temParticipante = await TipoUsuarioWorkspace.findOne({ where: { nome: "Padrao" } });
+    try {
+        const temAdministrador = await TipoUsuarioWorkspace.findOne({ where: { nome: "Administrador" } });
+        const temCoAdministrador = await TipoUsuarioWorkspace.findOne({ where: { nome: "Co-Administrador" } });
+        const temParticipante = await TipoUsuarioWorkspace.findOne({ where: { nome: "Padrao" } });
 
-    if (!temAdministrador) {
-        await TipoUsuarioWorkspace.create({ nome: "Administrador" });
-    }
+        if (!temAdministrador) {
+            await TipoUsuarioWorkspace.create({ nome: "Administrador" });
+            console.log("Administrador cadastrado.");
+        }
 
-    if (!temCoAdministrador) {
-        await TipoUsuarioWorkspace.create({ nome: "Co-Administrador" });
-    }
+        if (!temCoAdministrador) {
+            await TipoUsuarioWorkspace.create({ nome: "Co-Administrador" });
+            console.log("Co-Administrador cadastrado.");
+        }
 
-    if (!temParticipante) {
-        await TipoUsuarioWorkspace.create({ nome: "Padrao" });
+        if (!temParticipante) {
+            await TipoUsuarioWorkspace.create({ nome: "Padrao" });
+            console.log("Participante cadastrado.");
+        }
+
+    } catch (error) {
+        console.error("Erro ao cadastrar tipos de usuário:", error);
     }
 }
-
 
 cadastrarTiposDeUsuarioWorkspace()
 
