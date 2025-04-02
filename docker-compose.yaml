@@ -1,22 +1,23 @@
-version: '3.7'
+version: '3.8'
 
 services:
   postgres:
     image: 'postgres:latest'
     container_name: postgres
-    ports:
-      - '5432:5432'
+    restart: always  # Garante que reinicie caso falhe
     environment:
       - POSTGRES_USER=assetflow
       - POSTGRES_PASSWORD=assetflow
-      - POSTGRES_DBNAME=assetflowdb
-    
+      - POSTGRES_DB=assetflowdb
+    ports:
+      - '5432:5432'
     volumes:
-      - assetflowvolume:/var/lib/postgresql/data  # Caminho correto para o PostgreSQL
+      - assetflowvolume:/var/lib/postgresql/data
 
   pgadmin:
     image: 'dpage/pgadmin4'
     container_name: pgadmin4
+    restart: always
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=admin
@@ -26,7 +27,7 @@ services:
       - postgres
     volumes:
       - pgadmin_data:/var/lib/pgadmin
-
+      
 volumes:
   assetflowvolume:  
   pgadmin_data:
