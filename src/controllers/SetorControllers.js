@@ -2,6 +2,7 @@ import Setor from "../models/Setor.js";
 import Workspace from "../models/Workspace.js";
 import Usuario from "../models/Usuario.js";
 import UsuarioSetor from "../models/intermediarias/UsuarioSetor.js";
+import Cargo from "../models/Cargo.js";
 
 export default class SetorControllers {
     static async listarSetores(req, res) { // Funciona
@@ -18,7 +19,7 @@ export default class SetorControllers {
         }
     }
 
-    static async listarUsuarios(req, res) { // Funciona
+    static async listarUsuariosPorSetor(req, res) { // Funciona
         const {idSetor} = req.params
 
         try {
@@ -42,6 +43,27 @@ export default class SetorControllers {
             return res.json({ sucesso: true, mensagem: "Usuários listados com sucesso!", usuarios });
         } catch (error) {
             return res.status(500).json({ sucesso: false, mensagem: "Erro ao listar usuários do setor!", erro: error.message });
+        }
+    }
+
+    static async listarCargosPorSetor(req, res) {
+        const {idSetor} = req.params
+
+        try {
+            const setor = await Setor.findByPk(idSetor)
+            if (!setor) {
+                return res.status(404).json({ sucesso: false, mensagem: "Setor não encontrado!" });
+            }
+
+            const listaCargos = await Cargo.findAll({ where: { idSetor }})
+
+            if (listaCargos.length === 0) {
+                return res.status(404).json({ sucesso: false, mensagem: "Nenhum cargo encontrado para este setor!" });
+            }
+
+            return res.json({ sucesso: true,  mensagem: "Cargos listados com sucesso!", listaCargos })
+        } catch (error) {
+            return res.status(500).json({ sucesso: false, mensagem: "Erro ao listar cargos!", erro: error.message });
         }
     }
 

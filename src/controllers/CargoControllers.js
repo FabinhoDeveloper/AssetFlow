@@ -3,24 +3,7 @@ import Setor from "../models/Setor.js";
 
 export default class CargoControllers {
     static async listarCargosPorSetor(req, res) {
-        const {idSetor} = req.params
-
-        try {
-            const setor = await Setor.findByPk(idSetor)
-            if (!setor) {
-                return res.status(404).json({ sucesso: false, mensagem: "Setor não encontrado!" });
-            }
-
-            const listaCargos = await Cargo.findAll({ where: { idSetor }})
-
-            if (listaCargos.length === 0) {
-                return res.status(404).json({ sucesso: false, mensagem: "Nenhum cargo encontrado para este setor!" });
-            }
-
-            return res.json({ sucesso: true, listaCargos })
-        } catch (error) {
-            return res.status(500).json({ sucesso: false, mensagem: "Erro ao listar cargos!", erro: error.message });
-        }
+        
     }
 
     static async cadastrarCargo(req, res) {
@@ -41,7 +24,7 @@ export default class CargoControllers {
                 return res.status(404).json({ sucesso: false, mensagem: "Setor não encontrado ou não cadastrado!" })
             }
 
-            const cargoCriado = await Cargo.create({ nome })
+            const cargoCriado = await Cargo.create({ nome, idSetor })
 
             return res.json({ sucesso: true, mensagem: `Cargo ${cargoCriado.nome} cadastrado com sucesso!`})
         } catch (error) {
