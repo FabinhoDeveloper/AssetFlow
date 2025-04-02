@@ -46,7 +46,7 @@ export default class SetorControllers {
         }
     }
 
-    static async listarCargosPorSetor(req, res) {
+    static async listarCargosPorSetor(req, res) { // Funciona
         const {idSetor} = req.params
 
         try {

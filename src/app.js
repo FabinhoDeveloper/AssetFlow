@@ -9,6 +9,7 @@ import express from "express"
 import historicoRoutes from "./routes/historico.routes.js" 
 import itemRoutes from "./routes/item.routes.js" 
 import setorRoutes from "./routes/setor.routes.js" 
+import cargoRoutes from "./routes/cargo.routes.js"
 import usuarioRoutes from "./routes/usuario.routes.js" 
 import workspaceRoutes from "./routes/workspace.routes.js" 
 import setupAssociations from "./models/associations.js"
@@ -30,6 +31,7 @@ app.use("/item", itemRoutes)
 app.use("/setor", setorRoutes)
 app.use("/usuario", usuarioRoutes)
 app.use("/workspace", workspaceRoutes)
+app.use("/cargo", cargoRoutes)
 
 // Sincronização do banco de dados
 
