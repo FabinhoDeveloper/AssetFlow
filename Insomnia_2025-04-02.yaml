@@ -1,0 +1,555 @@
+type: collection.insomnia.rest/5.0
+name: HTTP Collection
+meta:
+  id: wrk_3cee75ac6d3b49caa4a081ecd26d056e
+  created: 1743512530701
+  modified: 1743512530701
+collection:
+  - name: Cargo
+    meta:
+      id: fld_77da15515ca6441b966f97e524d59a84
+      created: 1743512561972
+      modified: 1743512561972
+      sortKey: -1743512561972
+    children:
+      - url: "{{ _.BASE_URL_CARGO }}/cadastrar"
+        name: Cadastrar Cargo
+        meta:
+          id: req_18dd51e26a5b4a5286220ec38f820f07
+          created: 1743613643315
+          modified: 1743614540857
+          isPrivate: false
+          sortKey: -1743613643315
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "Diretor Jurídico",
+            	"idSetor": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Historico
+    meta:
+      id: fld_9aca9533e79e45beb174d4ba383a43bb
+      created: 1743512568353
+      modified: 1743615236946
+      sortKey: -1743512568353
+  - name: Item
+    meta:
+      id: fld_3a7bc0ce5bcf4c7a819b1b323a380633
+      created: 1743512573945
+      modified: 1743611609422
+      sortKey: -1743512573945
+  - name: Setor
+    meta:
+      id: fld_8bde24662e0a48d188f8d8ed2f5c7b29
+      created: 1743512583193
+      modified: 1743611608319
+      sortKey: -1743512583193
+    children:
+      - url: "{{ _.BASE_URL_SETOR }}/cadastrar"
+        name: Cadastrar Setor
+        meta:
+          id: req_02331181451b4087a894b0481ebc4005
+          created: 1743600227835
+          modified: 1743601374835
+          isPrivate: false
+          sortKey: -1743600227835
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "Jurídico",
+            	"idWorkspace": 2
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_SETOR }}/inserir-usuario/1"
+        name: Inserir Usuário no Setor
+        meta:
+          id: req_9be868329b5b467dbf9cd6d220a3a0f2
+          created: 1743601796325
+          modified: 1743601952111
+          isPrivate: false
+          sortKey: -1743600227935
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idUsuario": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_SETOR }}/excluir/2"
+        name: Excluir Setor
+        meta:
+          id: req_5cace812dc604d56b636cb880e8019c2
+          created: 1743603165356
+          modified: 1743603681107
+          isPrivate: false
+          sortKey: -1743603165356
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_SETOR }}/listar-usuarios/1"
+        name: Listar Usuários no Setor
+        meta:
+          id: req_625bfc3237524513b0f4decd758030b6
+          created: 1743603404140
+          modified: 1743603470705
+          isPrivate: false
+          sortKey: -1743603404140
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_SETOR }}/listar"
+        name: Listar Todos os Setores
+        meta:
+          id: req_7e72474d945e455facfa8e18a056fa41
+          created: 1743603472285
+          modified: 1743603637870
+          isPrivate: false
+          sortKey: -1743603472285
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_SETOR }}/remover-usuario/1"
+        name: Remover Usuário do Setor
+        meta:
+          id: req_8b4bff53a96c4b7e98fc3b0b88b9ba6c
+          created: 1743611825944
+          modified: 1743612220133
+          isPrivate: false
+          sortKey: -1743603284748
+        method: DELETE
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idUsuario": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_SETOR }}/editar/1"
+        name: Editar Setor
+        meta:
+          id: req_b8841c839dfd4354b2c470f783512f94
+          created: 1743611927173
+          modified: 1743612005694
+          isPrivate: false
+          sortKey: -1743611927173
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "TI"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_SETOR }}/listar-cargos/1"
+        name: Listar Cargos no Setor
+        meta:
+          id: req_b8b3eb220fd24708828e88fa546da4cc
+          created: 1743613493952
+          modified: 1743613528910
+          isPrivate: false
+          sortKey: -1743607699729
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Workspace
+    meta:
+      id: fld_24a875512aa24653a70ed050e0ac7c27
+      created: 1743512590426
+      modified: 1743611589727
+      sortKey: -1743512565162.5
+    children:
+      - url: "{{ _.BASE_URL_WORKSPACE }}/excluir/3"
+        name: Excluir Workspace
+        meta:
+          id: req_f33640f8e7dd498691368aa472fc60d6
+          created: 1743512598790
+          modified: 1743599800961
+          isPrivate: false
+          sortKey: -1743512598790
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_WORKSPACE }}/cadastrar"
+        name: Cadastrar Workspace
+        meta:
+          id: req_de105dc6e2704f329aa4644794ef1d82
+          created: 1743512601750
+          modified: 1743599709532
+          isPrivate: false
+          sortKey: -1743512601750
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "Prefeitura De Resende",
+            	"idUsuario": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_WORKSPACE }}/listar"
+        name: Listar Workspaces
+        meta:
+          id: req_f4375272826848fc919826e2d1405c1d
+          created: 1743512605377
+          modified: 1743611373777
+          isPrivate: false
+          sortKey: -1743600096571.25
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_WORKSPACE }}/listarPorUsuario/2"
+        name: Listar Workspaces do Usuário
+        meta:
+          id: req_185954a97e4845dc8a73cf4385fd3fbb
+          created: 1743514344513
+          modified: 1743611371809
+          isPrivate: false
+          sortKey: -1743600379306.5
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_WORKSPACE }}/editar/2"
+        name: Editar Workspace
+        meta:
+          id: req_5058e90a5b92485995d545c1adba33eb
+          created: 1743599813836
+          modified: 1743599853219
+          isPrivate: false
+          sortKey: -1743599813836
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "Prefeitura Municipal de Queluz"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_WORKSPACE }}/listar-setores/2"
+        name: Listar Setores
+        meta:
+          id: req_18cb5f4a17ef473fbdcdd08bd0c4fae7
+          created: 1743600944777
+          modified: 1743603158268
+          isPrivate: false
+          sortKey: -1743600944777
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Usuario
+    meta:
+      id: fld_3f67e1e162fe4e2b82ef2ae08778cffe
+      created: 1743512974179
+      modified: 1743611600925
+      sortKey: -1743512974179
+    children:
+      - url: "{{ _.BASE_URL_USUARIO }}/listar"
+        name: Listar Usuarios
+        meta:
+          id: req_5f360c5187404bdeb4d2fefdcab0ec9b
+          created: 1743513018239
+          modified: 1743611602899
+          isPrivate: false
+          sortKey: -1743513021256
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_USUARIO }}/cadastrar"
+        name: Cadastrar Usuário
+        meta:
+          id: req_0c6a7b9bf11f466c9bb6af6136b85c69
+          created: 1743513041185
+          modified: 1743515223405
+          isPrivate: false
+          sortKey: -1743513021356
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"primeiroNome": "Arthur",
+            	"ultimoNome": "Santos",
+            	"senha": "fabio123",
+            	"email": "arthur.ti@queluz.sp.gov.br",
+            	"cpf": "17741576745"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_USUARIO }}/excluir/"
+        name: Excluir Usuário
+        meta:
+          id: req_95d3e5f382154a6792912b11b7bebad8
+          created: 1743513098042
+          modified: 1743513123215
+          isPrivate: false
+          sortKey: -1743513098042
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_USUARIO }}/editar/1"
+        name: Editar Usuário
+        meta:
+          id: req_02e8fb2003884cbd947433347b7d6d16
+          created: 1743513228761
+          modified: 1743603928286
+          isPrivate: false
+          sortKey: -1743513228761
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"senha": "arthur1234"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL_USUARIO }}/login"
+        name: Login
+        meta:
+          id: req_278be246aff949a9bc9ddd62df92a7e4
+          created: 1743513252959
+          modified: 1743603973619
+          isPrivate: false
+          sortKey: -1743513252959
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "arthur.ti@queluz.sp.gov.br",
+            	"senha": "arthur1234"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_090e4c8f7a95731dd838be28fa15071556790693
+    created: 1743512530708
+    modified: 1743512530708
+environments:
+  name: Base Environment
+  meta:
+    id: env_090e4c8f7a95731dd838be28fa15071556790693
+    created: 1743512530705
+    modified: 1743512902941
+    isPrivate: false
+  data:
+    BASE_URL_CARGO: http://localhost:8080/cargo
+    BASE_URL_HISTORICO: http://localhost:8080/historico
+    BASE_URL_ITEM: http://localhost:8080/item
+    BASE_URL_SETOR: http://localhost:8080/setor
+    BASE_URL_USUARIO: http://localhost:8080/usuario
+    BASE_URL_WORKSPACE: http://localhost:8080/workspace
