@@ -3,7 +3,7 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
 export default class UsuarioControllers {
-    static async login(req, res) {
+    static async login(req, res) { 
         const {email, senha} = req.body 
         
         try {
