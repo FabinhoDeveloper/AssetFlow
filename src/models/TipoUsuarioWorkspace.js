@@ -18,23 +18,16 @@ const TipoUsuarioWorkspace = sequelize.define("tipoUsuarioWorkspace", {
 
 async function cadastrarTiposDeUsuarioWorkspace() {
     try {
-        const temAdministrador = await TipoUsuarioWorkspace.findOne({ where: { nome: "Administrador" } });
-        const temCoAdministrador = await TipoUsuarioWorkspace.findOne({ where: { nome: "Co-Administrador" } });
-        const temParticipante = await TipoUsuarioWorkspace.findOne({ where: { nome: "Padrao" } });
+        await sequelize.sync(); // Garante que a tabela está criada antes
 
-        if (!temAdministrador) {
-            await TipoUsuarioWorkspace.create({ nome: "Administrador" });
-            console.log("Administrador cadastrado.");
-        }
-
-        if (!temCoAdministrador) {
-            await TipoUsuarioWorkspace.create({ nome: "Co-Administrador" });
-            console.log("Co-Administrador cadastrado.");
-        }
-
-        if (!temParticipante) {
-            await TipoUsuarioWorkspace.create({ nome: "Padrao" });
-            console.log("Participante cadastrado.");
+        const tipos = ["Administrador", "Co-Administrador", "Padrao"];
+        
+        for (const nome of tipos) {
+            const existe = await TipoUsuarioWorkspace.findOne({ where: { nome } });
+            if (!existe) {
+                await TipoUsuarioWorkspace.create({ nome });
+                console.log(`${nome} cadastrado.`);
+            }
         }
 
     } catch (error) {
@@ -42,6 +35,6 @@ async function cadastrarTiposDeUsuarioWorkspace() {
     }
 }
 
-cadastrarTiposDeUsuarioWorkspace()
+cadastrarTiposDeUsuarioWorkspace();
 
 export default TipoUsuarioWorkspace

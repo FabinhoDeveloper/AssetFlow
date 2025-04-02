@@ -18,12 +18,28 @@ export default class WorkspaceControllers {
     }
 
     static async listarWorkspacesPorUsuario(req, res) {
-        const {idUsuario} = req.params
+        try {
+            const { idUsuario } = req.params; // Pegamos o ID do usuário da URL
+    
+            const usuarioComWorkspaces = await Usuario.findOne({
+                where: { idUsuario },
+                include: {
+                    model: Workspace,
+                    through: { attributes: [] }, // Evita que os dados da tabela intermediária sejam retornados
+                },
+            });
+    
+            if (!usuarioComWorkspaces) {
+                return res.status(404).json({ mensagem: "Usuário não encontrado" });
+            }
+    
+            res.json({ workspaces: usuarioComWorkspaces.Workspaces });
+        } catch (error) {
+            console.error("Erro ao buscar workspaces do usuário:", error);
+            res.status(500).json({ mensagem: "Erro interno do servidor" });
+        }
     }
-
-    static async listarUsuariosPorWorkspace(req, res) {
-        const {idWorkspace} = req.params
-    }
+    
     
     static async cadastrarWorkspace(req, res) {
         const {nome, idUsuario} = req.body
