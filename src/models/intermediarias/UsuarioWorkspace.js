@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../../config/database.js";
+import TipoUsuarioWorkspace from "../TipoUsuarioWorkspace.js"
 
 const UsuarioWorkspace = sequelize.define("usuarioTipoUsuarioWorkspace", {
     idUsuarioWorkspace: {
@@ -19,12 +20,12 @@ const UsuarioWorkspace = sequelize.define("usuarioTipoUsuarioWorkspace", {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: "tipoUsuarioWorkspace",
+            model: TipoUsuarioWorkspace,
             key: "idTipo"
         }
     }
 }, {
-    tableName: "UsuarioWorkspace",
+    tableName: "usuarioWorkspace",
     timestamps: false,
 });
 

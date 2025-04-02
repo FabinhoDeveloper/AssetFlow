@@ -60,7 +60,8 @@ export default class CargoControllers {
 
             
         } catch (error) {
-            
+            return res.status(500).json({ sucesso: false, mensagem: "Erro ao cadastrar cargo!", erro: error.message });
+
         }
     }
 

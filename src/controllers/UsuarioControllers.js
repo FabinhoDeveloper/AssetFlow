@@ -1,14 +1,38 @@
 import Usuario from "../models/Usuario.js";
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
 
 export default class UsuarioControllers {
     static async login(req, res) {
         const {email, senha} = req.body 
         
         try {
-            
+            if (!email || !senha) {
+                return res.status(400).json({ sucesso: false, mensagem: "Preencha todos os campos!" });
+            }    
+
+            const usuario = await Usuario.findOne({ where: { email } });
+
+            if (!usuario) {
+                return res.status(404).json({ sucesso: false, mensagem: "Usuário não encontrado!" });
+            }
+
+            const senhaCorreta = await bcrypt.compare(senha, usuario.senha)
+
+            if (!senhaCorreta) {
+                return res.status(401).json({ sucesso: false, mensagem: "Senha incorreta!" });
+            }
+
+            // Gerar token JWT
+            const token = jwt.sign(
+                { idUsuario: usuario.idUsuario, email: usuario.email },
+                process.env.JWT_SECRET, // Chave secreta no .env
+                { expiresIn: "1d" } // Tempo de expiração do token
+            );
+
+            return res.json({ sucesso: true, mensagem: "Login realizado com sucesso", token})
         } catch (error) {
-            
+            return res.status(500).json({ sucesso: false, mensagem: "Erro ao logar!", erro: error.message });
         }
     }
 
@@ -92,5 +116,24 @@ export default class UsuarioControllers {
 
     static async editarUsuario(req, res) {
         const {idUsuario} = req.params
+        const {primeiroNome, ultimoNome, senha, email, cpf} = req.body
+
+        try {
+            if (!idUsuario) {
+                return res.status(404).json({ sucesso: false, mensagem: "Preencha o Id de usuário!"})
+            }
+
+            const usuario = await Usuario.findByPk(idUsuario)
+
+            if (!usuario) {
+                return res.status(404).json({ sucesso: false, mensagem: "Nenhum usuário encontrado com este ID!"})
+            }
+
+            await usuario.update({ primeiroNome, ultimoNome, senha, email, cpf })
+
+            return res.json({ sucesso: true, mensagem: `Usuário ${usuario.primeiroNome} ${usuario.ultimoNome} editado com sucesso!`})
+        } catch (error) {
+            return res.status(500).json({ sucesso: false, mensagem: "Erro ao editar usuário!", erro: error.message });
+        }
     }
 }
