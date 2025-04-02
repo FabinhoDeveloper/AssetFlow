@@ -3,7 +3,7 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
 export default class UsuarioControllers {
-    static async login(req, res) { // Nao funciona
+    static async login(req, res) { // Funciona
         const {email, senha} = req.body 
         
         try {
@@ -129,7 +129,9 @@ export default class UsuarioControllers {
                 return res.status(404).json({ sucesso: false, mensagem: "Nenhum usuário encontrado com este ID!"})
             }
 
-            await usuario.update({ primeiroNome, ultimoNome, senha, email, cpf })
+            const senhaHash = await bcrypt.hash(senha, 10)
+
+            await usuario.update({ primeiroNome, ultimoNome, senha: senhaHash, email, cpf })
 
             return res.json({ sucesso: true, mensagem: `Usuário ${usuario.primeiroNome} ${usuario.ultimoNome} editado com sucesso!`})
         } catch (error) {
