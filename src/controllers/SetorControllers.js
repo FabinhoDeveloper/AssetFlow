@@ -2,6 +2,7 @@ import Setor from "../models/Setor.js";
 import Workspace from "../models/Workspace.js";
 import Usuario from "../models/Usuario.js";
 import UsuarioSetor from "../models/intermediarias/UsuarioSetor.js";
+import Cargo from "../models/Cargo.js";
 
 export default class SetorControllers {
     static async listarSetores(req, res) { // Funciona
@@ -18,8 +19,52 @@ export default class SetorControllers {
         }
     }
 
-    static async listarUsuarios(req, res) {
-        
+    static async listarUsuariosPorSetor(req, res) { // Funciona
+        const {idSetor} = req.params
+
+        try {
+            const setor = await Setor.findByPk(idSetor, {
+                include: {
+                    model: Usuario,
+                    through: { attributes: [] }, // Exclude intermediate table attributes
+                },
+            });
+
+            if (!setor) {
+                return res.status(404).json({ sucesso: false, mensagem: "Setor não encontrado!" });
+            }
+
+            const usuarios = setor.usuarios;
+
+            if (usuarios.length === 0) {
+                return res.status(404).json({ sucesso: false, mensagem: "Nenhum usuário encontrado neste setor!" });
+            }
+
+            return res.json({ sucesso: true, mensagem: "Usuários listados com sucesso!", usuarios });
+        } catch (error) {
+            return res.status(500).json({ sucesso: false, mensagem: "Erro ao listar usuários do setor!", erro: error.message });
+        }
+    }
+
+    static async listarCargosPorSetor(req, res) {
+        const {idSetor} = req.params
+
+        try {
+            const setor = await Setor.findByPk(idSetor)
+            if (!setor) {
+                return res.status(404).json({ sucesso: false, mensagem: "Setor não encontrado!" });
+            }
+
+            const listaCargos = await Cargo.findAll({ where: { idSetor }})
+
+            if (listaCargos.length === 0) {
+                return res.status(404).json({ sucesso: false, mensagem: "Nenhum cargo encontrado para este setor!" });
+            }
+
+            return res.json({ sucesso: true,  mensagem: "Cargos listados com sucesso!", listaCargos })
+        } catch (error) {
+            return res.status(500).json({ sucesso: false, mensagem: "Erro ao listar cargos!", erro: error.message });
+        }
     }
 
     static async cadastrarSetor(req, res) { // Funciona
@@ -63,8 +108,30 @@ export default class SetorControllers {
         }
     }
 
-    static async editarSetor(req, res) {
+    static async editarSetor(req, res) { // Funciona
         const {idSetor} = req.params
+        const { nome, idWorkspace } = req.body;
+
+        try {
+            const setor = await Setor.findByPk(idSetor);
+            if (!setor) {
+                return res.status(404).json({ sucesso: false, mensagem: "Setor não encontrado!" });
+            }
+
+            const workspace = await Workspace.findByPk(idWorkspace);
+            if (idWorkspace && !workspace) {
+                return res.status(404).json({ sucesso: false, mensagem: "Workspace não encontrado!" });
+            }
+
+            setor.nome = nome;
+            setor.idWorkspace = idWorkspace;
+
+            await setor.save();
+
+            return res.json({ sucesso: true, mensagem: "Setor atualizado com sucesso!", setor });
+        } catch (error) {
+            return res.status(500).json({ sucesso: false, mensagem: "Erro ao editar setor!", erro: error.message });
+        }
     }
     
     static async inserirUsuarioNoSetor(req, res) { // Funciona
@@ -94,7 +161,7 @@ export default class SetorControllers {
         }
     }
 
-    static async removerUsuarioNoSetor(req, res) {
+    static async removerUsuarioNoSetor(req, res) { // Funciona
         const { idSetor } = req.params;
         const { idUsuario } = req.body;
     
