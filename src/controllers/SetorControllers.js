@@ -121,5 +121,4 @@ export default class SetorControllers {
             return res.status(500).json({ sucesso: false, mensagem: "Erro ao remover usuário do setor!", erro: error.message });
         }
     }
-    
 }
