@@ -6,7 +6,7 @@ export default class SetorControllers {
         
     }
 
-    static async cadastrarSetor(req, res) {
+    static async cadastrarSetor(req, res) { // Funciona
         const {nome, idWorkspace} = req.body
 
         try {

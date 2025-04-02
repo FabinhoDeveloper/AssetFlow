@@ -1,6 +1,7 @@
 import Workspace from "../models/Workspace.js";
 import Usuario from "../models/Usuario.js";
 import UsuarioWorkspace from "../models/intermediarias/UsuarioWorkspace.js";
+import Setor from "../models/Setor.js";
 
 export default class WorkspaceControllers {
     static async listarWorkspaces(req, res) { // Funciona
@@ -35,10 +36,31 @@ export default class WorkspaceControllers {
     
             res.json({ workspaces: usuarioComWorkspaces.Workspaces });
         } catch (error) {
-            console.error("Erro ao buscar workspaces do usuário:", error);
-            res.status(500).json({ mensagem: "Erro interno do servidor" });
+            res.status(500).json({ sucesso: false, mensagem: "Erro interno do servidor" });
         }
     } 
+
+    static async listarSetores(req, res) { // Funciona
+        const { idWorkspace } = req.params;
+
+        try {
+            const workspace = await Workspace.findByPk(idWorkspace, {
+                include: Setor
+            });
+
+            if (!workspace) {
+                return res.status(404).json({ sucesso: false, mensagem: "Workspace não encontrado!" });
+            }
+
+            if (workspace.setors.length === 0) {
+                return res.status(404).json({ sucesso: false, mensagem: "Nenhum setor encontrado nesse Workspace!" });
+            }
+
+            return res.json({ sucesso: true, setores: workspace.setors});
+        } catch (error) {
+            return res.status(500).json({ sucesso: false, mensagem: "Erro interno do servidor", erro: error.message });
+        }
+    }
     
     static async cadastrarWorkspace(req, res) { // Funciona
         const {nome, idUsuario} = req.body

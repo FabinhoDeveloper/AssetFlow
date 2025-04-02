@@ -3,7 +3,7 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
 export default class UsuarioControllers {
-    static async login(req, res) { 
+    static async login(req, res) { // Nao funciona
         const {email, senha} = req.body 
         
         try {
@@ -36,7 +36,7 @@ export default class UsuarioControllers {
         }
     }
 
-    static async listarUsuarios(req, res) {
+    static async listarUsuarios(req, res) { // Funciona
         try {
             const listaUsuarios = await Usuario.findAll()
 
@@ -50,7 +50,7 @@ export default class UsuarioControllers {
         }
     }
     
-    static async cadastrarUsuario(req, res) {
+    static async cadastrarUsuario(req, res) { // Funciona
         const {primeiroNome, ultimoNome, senha, email, cpf} = req.body
 
         try {
@@ -92,7 +92,7 @@ export default class UsuarioControllers {
         }
     }
 
-    static async excluirUsuario(req, res) {
+    static async excluirUsuario(req, res) { // Funciona
         const {idUsuario} = req.params
 
         try {
@@ -114,7 +114,7 @@ export default class UsuarioControllers {
         }
     }
 
-    static async editarUsuario(req, res) {
+    static async editarUsuario(req, res) { // Funciona
         const {idUsuario} = req.params
         const {primeiroNome, ultimoNome, senha, email, cpf} = req.body
 
